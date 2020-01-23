@@ -1,9 +1,11 @@
-document.addEventListener('submit', async (event) => {
+document.addEventListener('submit', handleSubmit);
+
+async function handleSubmit(event) {
     if (event.target.id === 'contact-form') {
         event.preventDefault();
         await handleContactFormSubmit(event)
     }
-});
+}
 
 async function handleContactFormSubmit(event) {
     const form = event.target;
@@ -36,6 +38,7 @@ async function handleContactFormSubmit(event) {
             formParent.innerHTML = success;
             const $contactUsLink = document.querySelector('#contact-us-link');
             $contactUsLink.removeAttribute('data-loaded');
+            document.removeEventListener('submit', handleSubmit);
         } else {
             backendValidation(response)
         }
